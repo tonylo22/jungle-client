@@ -19,9 +19,9 @@ export class Autoplayer {
       }
       this.board.action(row, col); // select first
       for (const target of targets) {
-        const { action, source } = this.board.action(target[0], target[1]); // try moves
+        const { action } = this.board.action(target[0], target[1]); // try moves
         if (action === "move") {
-          return { autoSource: source, autoTargetID: `${target[0]}${target[1]}` };
+          return;
         }
       }
     }

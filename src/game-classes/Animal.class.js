@@ -10,8 +10,8 @@ export class Animal {
   move(targetRow, targetCol, currentPos, targetTerrainType, currentTerrainType) {
       if (targetTerrainType !== "river") {
           const [currentRow, currentCol] = currentPos;
-          if ((Math.abs(targetRow - currentRow) === 1 && Math.abs(targetCol - currentCol) === 0)
-            ||(Math.abs(targetRow - currentRow) === 0 && Math.abs(targetCol - currentCol) === 1)) {
+          if ((Math.abs(targetRow - currentRow) === 1 && targetCol === currentCol)
+            ||(Math.abs(targetCol - currentCol) === 1 && targetRow === currentRow)) {
               return true;
           }
       }
@@ -25,28 +25,33 @@ export class Animal {
 
 export class LionTiger extends Animal {
   move(targetRow, targetCol, currentPos, targetTerrainType, currentTerrainType) {
-      const [currentRow, currentCol] = currentPos;
-      if (targetTerrainType === "riverside" && currentTerrainType === "riverside") {
-        if ((this.species === "lion" && targetRow === currentRow && Math.abs(targetCol - currentCol) === 3) || (targetCol === currentCol)) {
-          return !JungleBoard.isRiverBlockedByRat(currentRow, targetRow, currentCol, targetCol);
-        }
-      }
-      if (targetTerrainType !== "river") {
-        if (Math.abs(targetRow - currentRow) <= 1 && Math.abs(targetCol - currentCol) <= 1) {
+    const [currentRow, currentCol] = currentPos;
+    if (targetTerrainType !== "river") {
+      if ((Math.abs(targetRow - currentRow) === 1 && targetCol === currentCol)
+        ||(Math.abs(targetCol - currentCol) === 1 && targetRow === currentRow)) {
           return true;
+      }
+      else {
+        if (targetTerrainType === "riverside" && currentTerrainType === "riverside") {
+          if ((this.species === "lion" && targetRow === currentRow && Math.abs(targetCol - currentCol) === 3) || (targetCol === currentCol)) {
+            return !JungleBoard.isRiverBlockedByRat(currentRow, targetRow, currentCol, targetCol);
+          }
         }
       }
-      return false;
+    }
+    return false;
   }
 }
 
 export class Rat extends Animal {
   move(targetRow, targetCol, currentPos, targetTerrainType, currentTerrainType) {
-      if (Math.abs(targetRow - currentPos[0]) <= 1 && Math.abs(targetCol - currentPos[1]) <= 1) {
-          this.rank = currentTerrainType !== "river" ?
-              ["lion", "tiger", "leopard", "wolf", "dog", "cat", "rat", "elephant"]
-              : ["elephant", "lion", "tiger", "leopard", "wolf", "dog", "cat", "rat"];
-          return true;
+    const [currentRow, currentCol] = currentPos;
+    if ((Math.abs(targetRow - currentRow) === 1 && targetCol === currentCol)
+      ||(Math.abs(targetCol - currentCol) === 1 && targetRow === currentRow)) {
+        this.rank = currentTerrainType !== "river" ?
+            ["lion", "tiger", "leopard", "wolf", "dog", "cat", "rat", "elephant"]
+            : ["elephant", "lion", "tiger", "leopard", "wolf", "dog", "cat", "rat"];
+        return true;
       }
       return false;
   }

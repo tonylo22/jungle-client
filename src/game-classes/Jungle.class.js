@@ -39,39 +39,32 @@ export class JungleBoard {
     if (targetAnimal) {
       // if click on unselected own Animal, select it
       if (targetAnimal.player === this.whoseTurn && targetAnimal !== this.selected) {
-        const originalSelectedPos = this.selectedPos;
         this.selected = targetAnimal;
         this.selectedPos = [targetRow, targetCol];
-        return {action: "select", source: originalSelectedPos};
+        return {action: "select"};
       }
       // if already selected an Animal, and click on an opponent Animal
       else if (this.selected && targetAnimal.player === -this.whoseTurn) {
         const currentTerrainType = this.terrain[this.selectedPos[0]][this.selectedPos[1]];
         if (this.selected.move(targetRow, targetCol, this.selectedPos, targetTerrainType, currentTerrainType) &&
             this.selected.capture(targetAnimal, targetTerrainType)) {
-            const [sourceRow, sourceCol] = this.selectedPos;
             this.update(targetRow, targetCol);
-            return {action:"move", source:[sourceRow, sourceCol]};
+            return {action:"move"};
         }
       }
     }
     else {
-        // if already selected an Animal, and click on empty opponent den, player wins
-        if (this.selected &&
-            ((this.whoseTurn === 1 && targetTerrainType === "-den") || (this.whoseTurn === -1 && targetTerrainType === "den"))) {
-            this.win();
+      const currentTerrainType = this.terrain[this.selectedPos[0]][this.selectedPos[1]];
+      // if already selected an Animal, and click on empty squares
+      if (this.selected && this.selected.move(targetRow, targetCol, this.selectedPos, targetTerrainType, currentTerrainType)) {
+        if ((this.whoseTurn === 1 && targetTerrainType === "-den") || (this.whoseTurn === -1 && targetTerrainType === "den")) {
+          this.win();
         }
-        // if already selected an Animal, and click on any empty square other than den
-        else if (this.selected) {
-            const currentTerrainType = this.terrain[this.selectedPos[0]][this.selectedPos[1]];
-            if (this.selected.move(targetRow, targetCol, this.selectedPos, targetTerrainType, currentTerrainType)) {
-              const [sourceRow, sourceCol] = this.selectedPos;  
-              this.update(targetRow, targetCol);
-              return {action:"move", source:[sourceRow, sourceCol]};
-            }
-        }
+        this.update(targetRow, targetCol);
+        return {action:"move"};
+      }
     }
-    return {action: "default", source: null};
+    return {action: "default"};
   }
 
   snapshot() {
@@ -88,7 +81,7 @@ export class JungleBoard {
   }
 
   win() {
-      alert(`Player ${this.whoseTurn} wins!`);
+    alert(`${this.whoseTurn===1? "Blue":"Red"} player wins!`);
   }
 
   getAnimalMap(player) {

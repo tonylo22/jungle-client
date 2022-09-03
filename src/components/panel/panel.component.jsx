@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { BoardContext } from "../../context/board.context";
 import { ReactComponent as Tree } from "../../assets/icons/tree.svg";
+import { COLORS } from "../../game-classes/constants.class";
 import Button from "../button/button.component";
 import "./panel.style.css";
 
@@ -9,7 +10,7 @@ const Panel = () => {
 
   return (
     <div className="panel-container">
-      <div className="logo">Jungle  <Tree fill="#e38542"/></div>
+      <div className="logo">Jungle  <Tree fill={COLORS.logo}/></div>
       <div className="top-message">
         Click a blue animal to begin. <button onClick={restart}>restart</button> anytime.
         <hr/>

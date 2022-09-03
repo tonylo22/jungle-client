@@ -21,3 +21,10 @@ export const TERRAIN = [
   ["space", "space", "space", "trap", "space", "space", "space"],
   ["space", "space", "trap", "den", "trap", "space", "space"]
 ];
+
+export const COLORS = {
+  logo: "#e38542",
+  red: "#ad1203",
+  blue:"#0b5e99",
+  dark: "#353535"
+};

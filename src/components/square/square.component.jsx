@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { BoardContext } from "../../context/board.context";
-import { TERRAIN } from "../../game-classes/constants.class";
+import { TERRAIN, COLORS } from "../../game-classes/constants.class";
 import "./square.style.css";
 import { ReactComponent as Elephant} from "../../assets/icons/elephant.svg";
 import { ReactComponent as Lion} from "../../assets/icons/lion.svg";
@@ -40,12 +40,12 @@ const Square = ({row, col, animal, isLand, isSelected}) => {
 
   let content;
   if (animal) {
-    const color = animal.includes("-")? "#ad1203": "#0b5e99";
+    const color = animal.includes("-")? COLORS.red: COLORS.blue;
     content = renderAnimal(animal.replace("-", ""), color);
   }
   else {
-    content = TERRAIN[row][col] === "den" || TERRAIN[row][col] === "-den" ? <Den fill={"#353535"} />:
-              TERRAIN[row][col] === "trap"? <Trap fill={"#353535"} /> :
+    content = TERRAIN[row][col] === "den" || TERRAIN[row][col] === "-den" ? <Den fill={COLORS.dark} />:
+              TERRAIN[row][col] === "trap"? <Trap fill={COLORS.dark} /> :
               isRiver ? <River />: "" ;
   }
 
