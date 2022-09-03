@@ -48,6 +48,7 @@ export class JungleBoard {
         const currentTerrainType = this.terrain[this.selectedPos[0]][this.selectedPos[1]];
         if (this.selected.move(targetRow, targetCol, this.selectedPos, targetTerrainType, currentTerrainType) &&
             this.selected.capture(targetAnimal, targetTerrainType)) {
+            this.checkWin(targetTerrainType);
             this.update(targetRow, targetCol);
             return {action:"move"};
         }
@@ -57,9 +58,7 @@ export class JungleBoard {
       const currentTerrainType = this.terrain[this.selectedPos[0]][this.selectedPos[1]];
       // if already selected an Animal, and click on empty squares
       if (this.selected && this.selected.move(targetRow, targetCol, this.selectedPos, targetTerrainType, currentTerrainType)) {
-        if ((this.whoseTurn === 1 && targetTerrainType === "-den") || (this.whoseTurn === -1 && targetTerrainType === "den")) {
-          this.win();
-        }
+        this.checkWin(targetTerrainType);
         this.update(targetRow, targetCol);
         return {action:"move"};
       }
@@ -80,8 +79,10 @@ export class JungleBoard {
       this.whoseTurn = -this.whoseTurn;
   }
 
-  win() {
-    alert(`${this.whoseTurn===1? "Blue":"Red"} player wins!`);
+  checkWin(targetTerrainType) {
+    if ((this.whoseTurn === 1 && targetTerrainType === "-den") || (this.whoseTurn === -1 && targetTerrainType === "den")) {
+      alert(`${this.whoseTurn===1? "Blue":"Red"} player wins!`);
+    }
   }
 
   getAnimalMap(player) {
