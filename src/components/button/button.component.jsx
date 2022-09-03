@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { BoardContext } from "../../context/board.context";
+import { BoardContext } from "../../board.context";
 import "./button.style.css";
 
 const Button = ({purpose, children}) => {

@@ -1,7 +1,6 @@
 import { createContext, useReducer, useEffect } from "react";
-import { JungleBoard } from "../game-classes/Jungle.class";
-import { INITIAL_POSITIONS } from "../game-classes/constants.class";
-import { Autoplayer } from "../game-classes/Autoplayer.class";
+import { JungleBoard } from "./game-classes/Jungle.class";
+import { Autoplayer } from "./game-classes/Autoplayer.class";
 import io from "socket.io-client";
 
 JungleBoard.getInstance();
@@ -9,10 +8,9 @@ const autoplayer = new Autoplayer(JungleBoard.getInstance());
 const socket = io("https://jungle-online.herokuapp.com/");
 
 export const BoardContext = createContext({
-  currentBoard: [],
-  selectedPos: [-1, -1],
   currentRoom: null,
   isOwnTurn: null,
+  isBluePlayer: true,
   tryAction: () => {},
   restart: () => {},
   createRoom: () => {},
@@ -21,8 +19,6 @@ export const BoardContext = createContext({
 });
 
 const INITIAL_STATE = {
-  currentBoard: INITIAL_POSITIONS,
-  selectedPos: [-1, -1],
   currentRoom: null,
   isOwnTurn: null,
   isBluePlayer: true
@@ -34,27 +30,21 @@ const boardReducer = (state, action) => {
     case "select":
       return {
         ...state,
-        selectedPos: JungleBoard.getInstance().selectedPos,
         isOwnTurn: state.isOwnTurn === null? true : state.isOwnTurn
       };
     case "move":
       return {
         ...state,
-        currentBoard: JungleBoard.getInstance().snapshot(),
-        selectedPos: [-1, -1],
         isOwnTurn: false
       };
     case "receive-select":
       return {
         ...state,
-        selectedPos: JungleBoard.getInstance().selectedPos,
         isOwnTurn: state.isOwnTurn === null? false : state.isOwnTurn
       };
     case "receive-move":
       return {
         ...state,
-        currentBoard: JungleBoard.getInstance().snapshot(),
-        selectedPos: [-1, -1],
         isOwnTurn: true
       };
     case "intoRoom":
@@ -76,7 +66,7 @@ const boardReducer = (state, action) => {
 
 export const BoardProvider = ({children}) => {
   const [ state, dispatch ] = useReducer(boardReducer, INITIAL_STATE);
-  const { currentBoard, selectedPos, currentRoom, isOwnTurn, isBluePlayer } = state;
+  const { currentRoom, isOwnTurn, isBluePlayer } = state;
   console.log(state);
 
   const correctPos = (target) => {
@@ -185,8 +175,6 @@ export const BoardProvider = ({children}) => {
   }
 
   const value = {
-    currentBoard,
-    selectedPos,
     currentRoom,
     isOwnTurn,
     isBluePlayer,

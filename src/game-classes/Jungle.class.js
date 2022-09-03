@@ -27,7 +27,7 @@ export class JungleBoard {
 
   constructor() {
     this.selected = null;
-    this.selectedPos = null;
+    this.selectedPos = [-1, -1];
     this.whoseTurn = 1;
     this.terrain = TERRAIN;
     this.board = JungleBoard.newBoard();
@@ -75,7 +75,7 @@ export class JungleBoard {
       this.board[targetRow][targetCol] = this.selected;
       this.board[currentRow][currentCol] = null;
       this.selected = null;
-      this.selectedPos = null;
+      this.selectedPos = [-1, -1];
       this.whoseTurn = -this.whoseTurn;
   }
 
@@ -99,7 +99,7 @@ export class JungleBoard {
 
   resetBoard() {
     this.selected = null;
-    this.selectedPos = null;
+    this.selectedPos = [-1, -1];
     this.whoseTurn = 1;
     this.board = JungleBoard.newBoard();
   }

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { BoardContext } from "../../context/board.context";
+import { BoardContext } from "../../board.context";
 import { ReactComponent as Tree } from "../../assets/icons/tree.svg";
 import { COLORS } from "../../game-classes/constants.class";
 import Button from "../button/button.component";

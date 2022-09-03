@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { BoardContext } from "../../context/board.context";
+import { BoardContext } from "../../board.context";
 import { TERRAIN, COLORS } from "../../game-classes/constants.class";
 import "./square.style.css";
 import { ReactComponent as Elephant} from "../../assets/icons/elephant.svg";
