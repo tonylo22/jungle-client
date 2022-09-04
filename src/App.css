@@ -5,3 +5,9 @@
   padding-top: 30px;
   gap: 20px;
 }
+
+@media only screen and (max-width: 600px) {
+  .main-wrapper {
+    padding-top: 10px;
+  }
+}

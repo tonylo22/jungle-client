@@ -54,10 +54,10 @@ export class JungleBoard {
         }
       }
     }
-    else {
+    else if (this.selected) {
       const currentTerrainType = this.terrain[this.selectedPos[0]][this.selectedPos[1]];
       // if already selected an Animal, and click on empty squares
-      if (this.selected && this.selected.move(targetRow, targetCol, this.selectedPos, targetTerrainType, currentTerrainType)) {
+      if (this.selected.move(targetRow, targetCol, this.selectedPos, targetTerrainType, currentTerrainType)) {
         this.checkWin(targetTerrainType);
         this.update(targetRow, targetCol);
         return {action:"move"};

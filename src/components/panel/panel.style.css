@@ -1,8 +1,14 @@
 .panel-container {
-  width: 20%;
+  width: 256px;
 }
 
-.logo {
+@media only screen and (max-width: 880px) {
+  .panel-container {
+    width: 29%;
+  }
+}
+
+.panel-container .logo {
   font-size: 28px;
   color: rgb(227, 133, 66);
   font-family: 'Bungee Shade', cursive;
@@ -15,17 +21,4 @@
 
 .top-message button {
   cursor: pointer;
-}
-
-.room-panel {
-  border: 2px solid #353535;
-  border-radius: 4px;
-  text-align: center;
-  padding: 8px;
-}
-
-#room-input, #player-input {
-  width: 80%;
-  height: 20px;
-  margin: 8px auto;
 }

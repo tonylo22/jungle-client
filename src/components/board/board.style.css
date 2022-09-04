@@ -1,7 +1,19 @@
 .squares-container {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  width: 35%;
+  width: 448px;
   border: 8px solid rgb(227, 133, 66);
   border-radius: 8px;
+}
+
+@media only screen and (max-width: 880px) {
+  .squares-container {
+    width: 51%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .squares-container {
+    width: 80%;
+  }
 }

@@ -6,6 +6,7 @@ import io from "socket.io-client";
 JungleBoard.getInstance();
 const autoplayer = new Autoplayer(JungleBoard.getInstance());
 const socket = io("https://jungle-online.herokuapp.com/");
+// const socket = io("http://localhost:3001"); // dev server
 
 export const BoardContext = createContext({
   currentRoom: null,
@@ -75,7 +76,9 @@ export const BoardProvider = ({children}) => {
 
   useEffect(() => {
     socket.on("message", message => {
-      document.getElementById("room-message").innerHTML = message;
+      if (document.getElementById("room-message")) {
+        document.getElementById("room-message").innerHTML = message;
+      }
     });
     
     socket.on("select", target => {
@@ -148,11 +151,11 @@ export const BoardProvider = ({children}) => {
   };
   
   const restart = () => {
-    JungleBoard.getInstance().resetBoard();
     if (currentRoom) {
       socket.emit("restart", currentRoom);
     }
     else {
+      JungleBoard.getInstance().resetBoard();
       dispatch({type:"new-auto-game"});
     }
   }

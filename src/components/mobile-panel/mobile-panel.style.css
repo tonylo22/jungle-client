@@ -1,0 +1,38 @@
+.mobile-panel-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  gap: 5px;
+  width: 83%;
+  margin: 0 auto;
+}
+
+.mobile-panel-container .logo {
+  font-size: 28px;
+  color: rgb(227, 133, 66);
+  font-family: 'Bungee Shade', cursive;
+}
+
+.mobile-panel-container .room-panel {
+  position: absolute;
+  top: 100%;
+  background-color: #F6F6F6;
+}
+
+.room-panel-btn {
+  min-height: 28px;
+  cursor: pointer;
+  word-wrap: break-word;
+}
+
+.restart-btn {
+  height: 36px;
+  width: 36px;
+  fill: #e38542;
+  cursor: pointer;
+}
+
+.restart-btn:active {
+  fill: #ad1203;
+}

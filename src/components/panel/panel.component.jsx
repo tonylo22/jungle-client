@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { BoardContext } from "../../board.context";
 import { ReactComponent as Tree } from "../../assets/icons/tree.svg";
 import { COLORS } from "../../game-classes/constants.class";
-import Button from "../button/button.component";
+import RoomPanel from "../room-panel/room-panel.component";
 import "./panel.style.css";
 
 const Panel = () => {
@@ -16,15 +16,7 @@ const Panel = () => {
         <hr/>
         Open a room and invite a friend to play &#128227;
       </div>
-      <div className="room-panel">
-        <div id="room-message">Welcome to Jungle!</div>
-        <input id="room-input" placeholder="Room Name..." />
-        <input id="player-input" placeholder="Your Name..." />
-        <Button purpose="create">Create Room</Button>
-        <Button purpose="join">Join Room</Button>
-        <br/>
-        <Button purpose="leave">Quit Room</Button>
-      </div>
+      <RoomPanel />
     </div>
   )
 }
