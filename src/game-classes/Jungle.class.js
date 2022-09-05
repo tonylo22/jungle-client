@@ -47,7 +47,7 @@ export class JungleBoard {
       else if (this.selected && targetAnimal.player === -this.whoseTurn) {
         const currentTerrainType = this.terrain[this.selectedPos[0]][this.selectedPos[1]];
         if (this.selected.move(targetRow, targetCol, this.selectedPos, targetTerrainType, currentTerrainType) &&
-            this.selected.capture(targetAnimal, targetTerrainType)) {
+            this.selected.capture(targetAnimal, targetTerrainType, currentTerrainType)) {
             this.checkWin(targetTerrainType);
             this.update(targetRow, targetCol);
             return {action:"move"};

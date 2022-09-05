@@ -18,8 +18,15 @@ export class Animal {
       return false;
   }
   
-  capture(targetAnimal, targetTerrainType) {
-      return targetTerrainType === "trap" || this.rank.indexOf(this.species) <= this.rank.indexOf(targetAnimal.species);
+  capture(targetAnimal, targetTerrainType, currentTerrainType) {
+    let isHigherRank = this.rank.indexOf(this.species) <= this.rank.indexOf(targetAnimal.species);
+    if (this.species === "elephant" && targetAnimal.species === "rat") {
+      isHigherRank = false;
+    }
+    else if (currentTerrainType === "river" && targetAnimal.species === "elephant") {
+      isHigherRank = false;
+    }
+    return targetTerrainType === "trap" || isHigherRank;
   }
 }
 
@@ -44,13 +51,15 @@ export class LionTiger extends Animal {
 }
 
 export class Rat extends Animal {
+  constructor(species, player) {
+    super(species, player);
+    this.rank = ["lion", "tiger", "leopard", "wolf", "dog", "cat", "rat", "elephant"];
+  }
+
   move(targetRow, targetCol, currentPos, targetTerrainType, currentTerrainType) {
     const [currentRow, currentCol] = currentPos;
     if ((Math.abs(targetRow - currentRow) === 1 && targetCol === currentCol)
       ||(Math.abs(targetCol - currentCol) === 1 && targetRow === currentRow)) {
-        this.rank = currentTerrainType !== "river" ?
-            ["lion", "tiger", "leopard", "wolf", "dog", "cat", "rat", "elephant"]
-            : ["elephant", "lion", "tiger", "leopard", "wolf", "dog", "cat", "rat"];
         return true;
       }
       return false;
